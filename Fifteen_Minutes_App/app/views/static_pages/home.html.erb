@@ -1,0 +1,466 @@
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Fifteen · The Artist's Place</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Le styles -->
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <style>
+
+	
+	
+	.title {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+
+    .interest {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+    }
+
+    .description {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+    }
+	
+	
+	
+    /* CUSTOMIZE THE NAVBAR
+    -------------------------------------------------- */
+
+    /* Special class on .container surrounding .navbar, used for positioning it into place. */
+    .navbar-wrapper {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      z-index: 10;
+      margin-top: 20px;
+	  color: #f00;
+      margin-bottom: -90px; /* Negative margin to pull up carousel. 90px is roughly margins and height of navbar. */
+    }
+    .navbar-wrapper .navbar {
+
+    }
+
+    /* Remove border and change up box shadow for more contrast */
+    .navbar .navbar-inner {
+      border: 0;
+	  color: #f00;
+      -webkit-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+         -moz-box-shadow: 0 2px 10px rgba(0,0,0,.25);
+              box-shadow: 0 2px 10px rgba(0,0,0,.25);
+    }
+
+    /* Downsize the brand/project name a bit */
+    .navbar .brand {
+      padding: 14px 20px 16px; /* Increase vertical padding to match navbar links */
+      font-size: 16px;
+      font-weight: bold;
+      text-shadow: 0 -1px 0 rgba(0,0,0,.5);
+	  color: #f00;
+	  font-family: 'Oswald', sans-serif;
+    }
+
+    /* Navbar links: increase padding for taller navbar */
+    .navbar .nav > li > a {
+	  color: #f00;
+      padding: 15px 20px;
+    }
+
+    /* Offset the responsive button for proper vertical alignment */
+    .navbar .btn-navbar {
+	  color: #f00;
+      margin-top: 10px;
+    }
+
+
+
+    /* CUSTOMIZE THE CAROUSEL
+    -------------------------------------------------- */
+
+    /* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+	  color: #5a5a5a;
+    }
+
+    .carousel .container {
+      position: relative;
+      z-index: 9;
+	  color: #5a5a5a;
+    }
+
+    .carousel-control {
+      height: 80px;
+      margin-top: 0;
+      font-size: 120px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #5a5a5a;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+      z-index: 10;
+    }
+
+    .carousel .item {
+      height: 500px;
+    }
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+	  font-family: 'Oswald', sans-serif;
+      color: #5a5a5a;
+	  height: 500px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 550px;
+      padding: 0 20px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #5a5a5a;
+      margin-top: 10px;
+    }
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+	  font-family: 'Oswald', sans-serif;
+	  color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #fff;
+    }
+
+
+
+    /* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 800px) {
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+	  
+	  .carousel-caption h1 {
+        font-size: 30px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 20px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+	  
+      .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+		color: #f00;
+      }
+
+      .carousel .item {
+        height: 500px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+		color: #f00;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+		color: #f00;
+      }
+    }
+
+
+    @media (max-width: 400px) {
+
+      .navbar-inner {
+        margin: -20px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel .container {
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel .item {
+        height: 500px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 5px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel-caption h1 {
+        font-size: 15px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 10px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+
+      .marketing .span3 + .span3 {
+        margin-top: 40px;
+		color: #f00;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+
+    }
+    </style>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="https://getbootstrap.com/2.3.2/assets/ico/favicon.png">
+  <style type="text/css"></style><style id="holderjs-style" type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;margin:0}</style></head>
+
+
+<% if logged_in? %>
+    <div class="row">
+	  <aside class="col-md-3">
+		<section>
+		  <h1>
+			<%= image_tag current_user.picture.url :size => 200 if current_user.picture? %>
+			<%= image_tag("fans.jpg",size: "200x200") if !current_user.picture? %>
+		  </h1>
+		</section>
+	  </aside>
+	  <div class="col-md-1">
+	    <%= link_to root_url method: :update do %>
+	      <span class="glyphicon glyphicon-refresh"></span>
+		<% end %>
+	  </div>
+	  <div class="col-md-1">
+	    <%= link_to :conversations do %>
+	      <span class="glyphicon glyphicon-comment"></span>
+		<% end %>
+	  </div>
+	  <div class="col-md-1">
+	    <%= link_to :new_conversation do %>
+	      <span class="glyphicon glyphicon-envelope"></span>
+		<% end %>
+	  </div>
+	  <div class="col-md-5">
+        <h2 class="title">My Interests</h2>
+        <span class="interest">
+		  <% current_user.interest.split(",").each do |word| %>
+	      <%= link_to "#" + word, :controller => '/users', :method => 'get', :search => word %>
+	    <% end %>
+        </span>
+      </div>
+	</div>
+	<div class="row">
+	  <a href="<%= user_path(current_user) %>">
+	    <aside class="col-md-3">
+		  <section class="stats">
+		    <%= current_user.name %>
+		  </section>
+		  <span class="microposts">
+            <%= pluralize(current_user.microposts.count, "micropost") %>
+          </span>
+	    </aside>
+	  </a>
+	</div>
+	<div class="row">
+	  <aside class="col-md-3">
+        <%= form_for(current_user, html: { multipart: true }) do |f| %>
+	      <%= f.submit "Upload Picture!", class: "btn btn-danger btn-sm" %>
+		  <span class="picture">
+            <%= f.file_field :picture, accept: 'image/jpeg,image/gif,image/png' %>
+          </span>
+	    <% end %>	
+      </aside>
+      <aside class="col-md-8">
+        <section class="micropost_form">
+          <%= render 'shared/micropost_form' %>
+        </section>
+      </aside>	  
+    </div>
+  <div class="row">
+    </aside>
+    <div class="col-md-3">
+      <h2 class="title">Description</h2>
+      <span class="description">
+        <%= simple_format(current_user.description) %>
+      </span>
+    </div>
+    <div class="col-md-8">
+      <h2 class="title">Artist Feed</h2>
+      <%= render 'shared/feed' %>
+    </div>
+  </div>
+  <div class="row">
+  </div>
+<% else %>
+
+  <body>
+
+
+    <!-- Carousel
+    ================================================== -->
+    <div id="myCarousel" class="carousel slide">
+      <div class="carousel-inner">
+        <div class="item active left">
+		  <%= image_tag("slide-01.jpg", :size => '1024x691',:alt => "rss feed") %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>You got fifteen minutes, use it!</h1>
+              <p class="lead">Talk about the main features of the site, add some cutesy slogan, talk about the search features, finding artists, and expressing your work.</p>
+              <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
+            </div>
+          </div>
+        </div>
+        <div class="item next left">
+          <%= image_tag("slide-02.jpg", :size => '1024x691', :alt => "rss feed") %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Get in the loop.</h1>
+              <p class="lead">Talk about the social network aspect of the site, the benefit to fans and businesses specificly on discovering what's out there and getting what they want across.</p>
+              <a class="btn btn-large btn-primary" href="placeholder.html">Search for more</a>
+            </div>
+          </div>
+        </div>
+        <div class="item">
+          <%= image_tag("slide-03.jpg", :size => '1024x691', :alt => "rss feed") %>
+          <div class="container">
+            <div class="carousel-caption">
+              <h1>Express Yourself.</h1>
+              <p class="lead">Talk about the gallery, forum, and other means artists can get their work out to the public using the site. Have a link to a general gallery of some sort.</p>
+              <a class="btn btn-large btn-primary" href="placeholder.html">Browse gallery</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="https://getbootstrap.com/2.3.2/examples/carousel.html#myCarousel" data-slide="prev">‹</a>
+      <a class="right carousel-control" href="https://getbootstrap.com/2.3.2/examples/carousel.html#myCarousel" data-slide="next">›</a>
+    </div><!-- /.carousel -->
+
+
+
+    <!-- Marketing messaging and featurettes
+    ================================================== -->
+    <!-- Wrap the rest of the page in another container to center all the content. -->
+
+    <div class="container marketing">
+
+      <!-- Three columns of text below the carousel -->
+      <div class="row">
+        <div class="col-md-4">
+		  <%= image_tag("artist.jpg", size: "140", class: "img-circle") %>
+          <h2>Artists</h2>
+          <p>Have a short description of what artists get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to artists.</p>
+          <p><a class="btn" href="placeholder.html">View details »</a></p>
+        </div><!-- /.col-md-4 -->
+        <div class="col-md-4">
+          <%= image_tag("business.jpg", size: "140", class: "img-circle") %>
+          <h2>Business</h2>
+          <p>Have a short description of what local businesses get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to businesses.</p>
+          <p><a class="btn" href="placeholder.html">View details »</a></p>
+        </div><!-- /.col-md-4 -->
+        <div class="col-md-4">
+          <%= image_tag("fans.jpg", size: "140", class: "img-circle") %>
+          <h2>Fans</h2>
+          <p>Have a short description of what fans get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to fans.</p>
+          <p><a class="btn" href="placeholder.html">View details »</a></p>
+        </div><!-- /.col-md-4 -->
+      </div><!-- /.row -->
+
+
+      <!-- START THE FEATURETTES -->
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <iframe class="featurette-image pull-right" width="512" height="512" src="https://www.youtube.com/embed/9p4NkdzXazM" frameborder="0" allowfullscreen></iframe>
+        <h2 class="featurette-heading">What's Hot? <span class="muted">It'll blow your mind.</span></h2>
+        <p class="lead">Add a video, music, or some performance by an artist that is currently trending on the website. Add a short description and a link to their profile.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+        <iframe class="featurette-image pull-left" src="https://www.google.com/calendar/embed?src=avoskuil%40andrew.cmu.edu&ctz=America/New_York" style="border: 0" width="516" height="516" frameborder="0" scrolling="no"></iframe>
+        <h2 class="featurette-heading">What's going on? <span class="muted">See for yourself.</span></h2>
+        <p class="lead">Short description of the biggest act that month or week, add a link to profile pages associated with the groups involved.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="featurette">
+	    <%= image_tag("ads.jpg", class: "featurette-image pull-right") %>
+        <h2 class="featurette-heading">What's the talk of the town? <span class="muted">Legato School of Music.</span></h2>
+        <p class="lead">Have this be an ad for some for-profit business or non-profit group of artists that is trending on the website. Add a short description and a link to a website.</p>
+      </div>
+
+      <hr class="featurette-divider">
+
+    </div><!-- /.container -->
+  
+</body><% end %></html>

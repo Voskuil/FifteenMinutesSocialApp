@@ -1,0 +1,44 @@
+<% provide(:title, @user.name) %>
+<div class="row">
+  <aside class="col-md-3">
+    <section>
+      <h1>
+        <%= image_tag(@user.picture.url,size: "200x200") if @user.picture? %>
+        <%= image_tag("fans.jpg",size: "200x200") if !@user.picture? %>
+      </h1>
+    </section>
+  </aside>
+</div>
+<div class="row">
+  <aside class="col-md-3">
+    <section class="stats">
+	  <%= @user.name %>
+      <%= render 'shared/stats' %>
+	  <%= link_to :new_conversation do %>
+        <span class="glyphicon glyphicon-envelope"></span>
+      <% end %>
+    </section>
+  </aside>
+</div>
+<div class="row">
+  <div class="col-md-3">
+    <h3>Description</h3>
+    <span class="description">
+      <% if @user.description.index("#") == nil %>
+	    <%= simple_format(@user.description) %>
+	  <% else %>
+	    <%= simple_format(@user.description[0,@user.description.index("#")]) %>
+	  <% end %>
+    </span>
+  </div>
+  <div class="col-md-8">
+    <%= render 'follow_form' if logged_in? %>
+    <% if @user.microposts.any? %>
+      <h3>Microposts (<%= @user.microposts.count %>)</h3>
+      <ol class="microposts">
+        <%= render @microposts %>
+      </ol>
+      <%= will_paginate @microposts %>
+    <% end %>
+  </div>
+</div>

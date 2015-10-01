@@ -1,0 +1,582 @@
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/* mixins, variables, etc. */
+
+$gray-medium-light: #eaeaea;
+
+@mixin box_sizing {
+  -moz-box-sizing:    border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing:         border-box;
+}
+/* universal */
+
+body {
+  padding-top: 60px;
+  background-image: image-url('background2.png');
+}
+
+#signin {
+  padding-top: 60px;
+  background-image: image-url('background3.jpg');
+}
+
+#signup {
+  padding-top: 60px;
+  background-image: image-url('background.jpg');
+}
+
+#convo {
+  padding-top: 60px;
+  background-image: image-url('home-background.jpg');
+}
+
+#update {
+  padding-top: 60px;
+  background-image: image-url('background4.jpg');
+}
+section {
+  overflow: auto;
+}
+
+textarea {
+  resize: vertical;
+  font-family: 'Oswald', sans-serif;
+}
+
+.center {
+  text-align: center;
+  h1 {
+    margin-bottom: 10px;
+	font-family: 'Oswald', sans-serif;
+  }
+}
+
+/* typography */
+
+
+.title {
+  line-height: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+.interest {
+  line-height: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+.description {
+  line-height: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1;
+  font-family: 'Oswald', sans-serif;
+}
+
+h1 {
+  font-size: 3em;
+  letter-spacing: -2px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-family: 'Oswald', sans-serif;
+}
+
+h2 {
+  font-size: 1.2em;
+  letter-spacing: -1px;
+  margin-bottom: 30px;
+  text-align: center;
+  font-weight: normal;
+  color: $gray-light;
+  font-family: 'Oswald', sans-serif;
+}
+
+p {
+  font-size: 1.1em;
+  line-height: 1.7em;
+  font-family: 'Oswald', sans-serif;
+}
+
+
+/* header */
+
+#logo {
+  float: left;
+  margin-right: 10px;
+  font-size: 1.7em;
+  color: white;
+  text-transform: uppercase;
+  letter-spacing: -1px;
+  padding-top: 9px;
+  font-weight: bold;
+  &:hover {
+    color: white;
+    text-decoration: none;
+  font-family: 'Oswald', sans-serif;
+  }
+}
+
+.navbar-inner{
+  background-image: url('background.jpeg');
+  background-repeat: repeat-x;
+}
+
+/* footer */
+
+footer {
+  margin-top: 45px;
+  padding-top: 5px;
+  border-top: 1px solid $gray-medium-light;
+  color: $gray-light;
+  background-image: image-url('bar.gif');
+  a {
+    color: $gray;
+    &:hover {
+      color: $gray-darker;
+    }
+  }
+  small {
+    float: left;
+  }
+  ul {
+    float: right;
+    list-style: none;
+    li {
+      float: left;
+      margin-left: 15px;
+    }
+  }
+}
+
+/* Carousel base class */
+    .carousel {
+      margin-bottom: 60px;
+	  color: #5a5a5a;
+    }
+
+    .carousel .container {
+      position: relative;
+      z-index: 9;
+	  color: #5a5a5a;
+    }
+
+    .carousel-control {
+      height: 80px;
+      margin-top: 0;
+      font-size: 120px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #5a5a5a;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+      background-color: transparent;
+      border: 0;
+      z-index: 10;
+    }
+
+    .carousel .item {
+      height: 500px;
+    }
+    .carousel img {
+      position: absolute;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+	  font-family: 'Oswald', sans-serif;
+      color: #5a5a5a;
+	  height: 500px;
+    }
+
+    .carousel-caption {
+      background-color: transparent;
+      position: static;
+      max-width: 550px;
+      padding: 0 20px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #5a5a5a;
+      margin-top: 200px;
+    }
+    .carousel-caption h1,
+    .carousel-caption .lead {
+      margin: 0;
+      line-height: 1.25;
+	  font-family: 'Oswald', sans-serif;
+	  color: #fff;
+      text-shadow: 0 1px 1px rgba(0,0,0,.4);
+    }
+    .carousel-caption .btn {
+      margin-top: 10px;
+	  font-family: 'Oswald', sans-serif;
+	  color: #fff;
+    }
+	
+	/* MARKETING CONTENT
+    -------------------------------------------------- */
+
+    /* Center align the text within the three columns below the carousel */
+    .marketing .span4 {
+      text-align: center;
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+    .marketing h2 {
+      font-weight: normal;
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+    .marketing .span3 p {
+      margin-left: 10px;
+      margin-right: 10px;
+	  color: #f00;
+    }
+
+
+    /* Featurettes
+    ------------------------- */
+
+    .featurette-divider {
+      margin: 80px 0; /* Space out the Bootstrap <hr> more */
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+	
+    .featurette {
+      padding-top: 120px; /* Vertically center images part 1: add padding above and below text. */
+      overflow: hidden; /* Vertically center images part 2: clear their floats. */
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+    .featurette-image {
+      margin-top: -120px; /* Vertically center images part 3: negative margin up the image the same amount of the padding to center it. */
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+
+    /* Give some space on the sides of the floated elements so text doesn't run right into it. */
+    .featurette-image.pull-left {
+      margin-right: 40px;
+	  color: #f00;
+    }
+    .featurette-image.pull-right {
+      margin-left: 40px;
+	  color: #f00;
+    }
+
+    /* Thin out the marketing headings */
+    .featurette-heading {
+      font-size: 50px;
+      font-weight: 300;
+	  font-family: 'Oswald', sans-serif;
+	  color: #f00;
+      line-height: 1;
+      letter-spacing: -1px;
+    }
+	
+	/* RESPONSIVE CSS
+    -------------------------------------------------- */
+
+    @media (max-width: 979px) {
+
+      .container.navbar-wrapper {
+        margin-bottom: 0;
+        width: auto;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .navbar-inner {
+        border-radius: 0;
+        margin: -20px 0;
+		color: #f00;
+      }
+
+      .carousel .item {
+        height: 500px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .carousel img {
+        width: auto;
+        height: 500px;
+      }
+
+      .featurette {
+        height: auto;
+        padding: 0;
+		color: #f00;
+      }
+      .featurette-image.pull-left,
+      .featurette-image.pull-right {
+        display: block;
+        float: none;
+        max-width: 40%;
+        margin: 0 auto 20px;
+		color: #f00;
+      }
+    }
+
+
+    @media (max-width: 767px) {
+
+      .navbar-inner {
+        margin: -20px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+
+      .carousel {
+        margin-left: -20px;
+        margin-right: -20px;
+		font-size: 1px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel .container {
+	    font-size: 1px;
+		font-family: 'Oswald', sans-serif;
+		
+		color: #fff;
+      }
+      .carousel .item {
+        height: 300px;
+		font-size: 1px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel img {
+        height: 300px;
+      }
+      .carousel-caption {
+        width: 65%;
+        padding: 0 70px;
+        margin-top: 100px;
+		font-size: 3px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel-caption h1 {
+        font-size: 3px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+      .carousel-caption .lead,
+      .carousel-caption .btn {
+        font-size: 1px;
+		font-family: 'Oswald', sans-serif;
+		color: #fff;
+      }
+
+      .marketing .span3 + .span3 {
+        margin-top: 40px;
+		color: #f00;
+      }
+
+      .featurette-heading {
+        font-size: 30px;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+      .featurette .lead {
+        font-size: 18px;
+        line-height: 1.5;
+		font-family: 'Oswald', sans-serif;
+		color: #f00;
+      }
+	}
+
+/* miscellaneous */
+
+.debug_dump {
+  clear: both;
+  float: left;
+  width: 100%;
+  margin-top: 45px;
+  @include box_sizing;
+}
+
+/* sidebar */
+
+aside {
+  section.user_info {
+    margin-top: 20px;
+  }
+  section {
+    padding: 10px 0;
+    margin-top: 20px;
+    &:first-child {
+      border: 0;
+      padding-top: 0;
+    }
+    span {
+      display: block;
+      margin-bottom: 3px;
+      line-height: 1;
+    }
+    h1 {
+      font-size: 1.4em;
+      text-align: left;
+      letter-spacing: -1px;
+      margin-bottom: 3px;
+      margin-top: 0px;
+	  font-family: 'Oswald', sans-serif;
+    }
+  }
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 15px;
+}
+
+.gravatar {
+  float: left;
+  margin-right: 10px;
+}
+
+.gravatar_edit {
+  margin-top: 15px;
+}
+
+.stats {
+  overflow: auto;
+  margin-top: 0;
+  padding: 0;
+  a {
+    float: left;
+    padding: 0 10px;
+    border-left: 1px solid $gray-lighter;
+    color: gray;
+	font-family: 'Oswald', sans-serif;
+    &:first-child {
+      padding-left: 0;
+      border: 0;
+    }
+    &:hover {
+      text-decoration: none;
+      color: blue;
+    }
+  }
+  strong {
+    display: block;
+  }
+}
+
+.user_avatars {
+  overflow: auto;
+  margin-top: 10px;
+  .gravatar {
+    margin: 1px 1px;
+  }
+  a {
+    padding: 0;
+  }
+}
+
+.users.follow {
+  padding: 0;
+}
+
+/* forms */
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+  @include box_sizing;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color: red;
+  ul {
+    color: red;
+    margin: 0 0 30px 0;
+  }
+}
+
+.field_with_errors {
+  @extend .has-error;
+  .form-control {
+    color: $state-danger-text;
+  }
+}
+
+.checkbox {
+  margin-top: -10px;
+  margin-bottom: 10px;
+  span {
+    margin-left: 20px;
+    font-weight: normal;
+  }
+}
+
+#session_remember_me {
+  width: auto;
+  margin-left: 0;
+}
+
+/* Users index */
+
+.users {
+  list-style: none;
+  margin: 0;
+  li {
+    overflow: auto;
+    padding: 10px 0;
+    border-bottom: 1px solid $gray-lighter;
+  }
+}
+
+/* microposts */
+
+.microposts {
+  list-style: none;
+  padding: 0;
+  li {
+    padding: 10px 0;
+    border-top: 1px solid #e8e8e8;
+  }
+  .user {
+    margin-top: 5em;
+    padding-top: 0;
+  }
+  .content {
+    display: block;
+    margin-left: 60px;
+    img {
+      display: block;
+      padding: 5px 0;
+    }
+  }
+  .timestamp {
+    color: $gray-light;
+    display: block;
+    margin-left: 60px;
+  }
+  .gravatar {
+    float: left;
+    margin-right: 10px;
+    margin-top: 5px;
+  }
+}
+
+aside {
+  textarea {
+    height: 100px;
+    margin-bottom: 5px;
+  }
+}
+
+span.picture {
+  margin-top: 10px;
+  input {
+    border: 0;
+  }
+}

@@ -1,0 +1,52 @@
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+
+    <!-- Le styles -->
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <style>
+	
+	.title {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+	
+</style>
+	<link href='https://fonts.googleapis.com/css?family=Oswald:700' rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim, for IE6-8 support of HTML5 elements -->
+    <!--[if lt IE 9]>
+      <script src="../assets/js/html5shiv.js"></script>
+    <![endif]-->
+
+    <!-- Fav and touch icons -->
+    <link rel="apple-touch-icon-precomposed" sizes="144x144" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-144-precomposed.png">
+    <link rel="apple-touch-icon-precomposed" sizes="114x114" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-114-precomposed.png">
+      <link rel="apple-touch-icon-precomposed" sizes="72x72" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-72-precomposed.png">
+                    <link rel="apple-touch-icon-precomposed" href="https://getbootstrap.com/2.3.2/assets/ico/apple-touch-icon-57-precomposed.png">
+                                   <link rel="shortcut icon" href="https://getbootstrap.com/2.3.2/assets/ico/favicon.png">
+  <style type="text/css"></style><style id="holderjs-style" type="text/css">.holderjs-fluid {font-size:16px;font-weight:bold;text-align:center;font-family:sans-serif;margin:0}</style></head>
+
+<li>
+  <%= image_tag(user.picture.url,size: "50x50") if user.picture? %>
+  <%= image_tag("fans.jpg",size: "50x50") if !user.picture? %>
+  <%= link_to user.name, user, :class => "title" %>
+  <% if current_user.admin? && !current_user?(user) %>
+    | <%= link_to "delete", user, method: :delete,
+                                  data: { confirm: "You sure?" } %>
+  <% end %>
+</li>
+<div class="row">
+  <div class="col-md-3">
+    <span class="description">
+      <% if user.description.index("#") == nil %>
+	    <%= user.description %>
+	  <% else %>
+	    <%= user.description[0,user.description.index(" #")] %>
+	    <% user.description[user.description.index(" #")..-1].split(" #")[1..-1].each do |word| %>
+	      <%= link_to "#" + word, :controller => '/users', :method => 'get', :search => word %>
+	    <% end %>
+	  <% end %>
+    </span>
+  </div>
+</div></html>
