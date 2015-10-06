@@ -8,7 +8,7 @@
 #             activated_at: Time.zone.now,
 #			 description: "Hi I am swell!")
 
-50.times do |n|
+500.times do |n|
   name  = Faker::Name.name
   email = "example-#{n+1}@railstutorial.org"
   password = "password"
@@ -40,18 +40,22 @@
 end
 
 # Microposts
-users = User.order(:created_at).take(50)
-10.times do
+users = User.order(:created_at).take(500)
+50.times do
   #content = Faker::Lorem.paragraph
-  users.each { |user| user.microposts.create!(content: Faker::Lorem.paragraph) }
+  users.each do |user| 
+    post = user.microposts.create!(content: Faker::Lorem.paragraph)
+	time = post.created_at.to_f
+	post.update_attribute(:rank, time)
+  end
 end
 
 # Following relationships
 users = User.all
 users.each do |user|
-  @interestPre = user.interest.tr("?!#(),'.-","").downcase.split(",")
+  @interestPre = user.interest.tr("?!#()'.-","").downcase.split(",")
   @interest = @interestPre.map{|c| c.rstrip.lstrip}
-  @interestPre.each do |keyword|
- 	user.findFriends(users, keyword)
+  @interest.each do |keyword|
+ 	user.findFriends(users, keyword, {})
   end
 end

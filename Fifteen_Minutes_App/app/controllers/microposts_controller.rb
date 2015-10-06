@@ -16,12 +16,8 @@ class MicropostsController < ApplicationController
 		end
 	  end
 	  current_user.update_attribute(:bucket, current_user.bucket)
-	  if @micropost.created_at == nil
-	    1 + "hi"
-	  else
-	    time = @micropost.created_at.to_f
-	    @micropost.update_attribute(:rank, time)
-	  end
+	  time = @micropost.created_at.to_f
+	  @micropost.update_attribute(:rank, time)
       redirect_to root_url
     else
       @feed_items = []

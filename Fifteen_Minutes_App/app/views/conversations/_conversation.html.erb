@@ -1,7 +1,11 @@
 <%= content_tag_for(:li, conversation) do |conversation| %>
   <p>
+    <% reciept = conversation.receipts_for(current_user)[-1] %>
+	<% sender = reciept.message.sender %>
     <%= link_to conversation.subject, conversation_path(conversation) %>
-    |
+     | 
+	<%= link_to sender.name, user_path(sender) %>
+	 | 
     <% if conversation.is_completely_trashed?(current_user) %>
       <%= link_to 'Untrash', untrash_conversation_path(conversation), method: :post %>
     <% else %>

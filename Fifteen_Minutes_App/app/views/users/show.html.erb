@@ -30,6 +30,10 @@
 	    <%= simple_format(@user.description[0,@user.description.index("#")]) %>
 	  <% end %>
     </span>
+	<h3>Location</h3>
+	<span class="location">
+	    <%= simple_format(@user.location) %>
+	</span>
   </div>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>

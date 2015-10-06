@@ -8,6 +8,18 @@ h1
 	margin: 0;
 }
 
+h2 {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+	
+h3 {
+      line-height: 1;
+      font-family: 'Oswald', sans-serif;
+	  color: #f00;
+    }
+
 p.bubble
 {
 	position: relative;
@@ -84,6 +96,7 @@ p.thought:after
 }
 </style>
 
+<body id="convo">
 <h2>
   <%= conversation.subject %>
 </h2>
@@ -91,11 +104,31 @@ p.thought:after
   <%= content_tag_for(:li, conversation.receipts_for(current_user)) do |receipt| %>
     <% message = receipt.message %>
     <h3>
-      <%= message.sender.name %>
+	  <div class="row">
+	  <% if message.sender.name != current_user.name %>
+         <%= message.sender.name %>
+	  <% else %>
+	     <div class="col-xs-4 col-sm-4 col-md-4 col-xs-offset-8 col-sm-offset-8 col-md-offset-8">
+	       <%= message.sender.name %>
+		 </div>
+	  <% end %>
+	  </div>
     </h3>
-    <p class="bubble speech">
-      <%= message.body %>
-    </p>
+	<div class="row">
+	<% if message.sender.name != current_user.name %>
+	  <div class="col-xs-4 col-sm-4 col-md-4">
+        <p class="bubble speech">
+          <%= message.body %>
+        </p>
+	  </div>
+	<% else %>
+	  <div class="col-xs-4 col-sm-4 col-md-4 col-xs-offset-8 col-sm-offset-8 col-md-offset-8">
+        <p class="bubble speech">
+          <%= message.body %>
+        </p>
+	  </div>
+    <% end %>	  
+	</div>
   <% end %>
 </ul>
 <%= render 'messages/form', conversation: conversation %></html>

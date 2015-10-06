@@ -68,30 +68,18 @@ class UsersController < ApplicationController
 	  users = @user.followers
 	  @user.peerBucketAdd(users)
 	  if @user.trainData == {} and @user.newFriends != {}
-	    #@user.newFriends.each do |friend,count|
-	    #  @user.initializer(friend)
-		#  @user.liklihood_and_priors
-		friend = 52
-		friendo = User.find_by(id: friend)
-		rankTemp = friendo.active_relationships.find_by(followed_id: @user.id).rank
-		friendo.active_relationships.find_by(followed_id: @user.id).update_attribute(:rank, rankTemp+100000000000)
-		rand1 = friendo.active_relationships[rand(friendo.active_relationships.all.length)]
-		rand2 = friendo.active_relationships[rand(friendo.active_relationships.all.length)]
-		rand1.update_attribute(:rank, rand1.rank+100000000000)
-		rand2.update_attribute(:rank, rand2.rank+100000000000)
-		#end
+	    @user.newFriends.each do |friend,count|
+	      #@user.initializer(friend)
+		  #@user.liklihood_and_priors
+		  friendo = User.find_by(id: friend)
+		  rankTemp = friendo.active_relationships.find_by(followed_id: @user.id).rank
+		  friendo.active_relationships.find_by(followed_id: @user.id).update_attribute(:rank, rankTemp+100)
+		end
 	  elsif @user.trainData != {} and @user.newFriends != {}
 	    @user.newFriends.select{|name| @user.trainData["friends"]["name"][name] != nil}.each do |name|
-	    #  user = User.find_by(email: name)
-		#  @user.initializer(name)
-		#  @user.liklihood_and_priors
-		rankTemp = @user.active_relationships.find_by(:id, friend.id).rank
-		@user.active_relationships.find_by(:id, friend.id).update_attribute(:rank, rankTemp+100000000000)
-		rand1 = @user.active_relationships[rand(@user.active_relationships.all.length)]
-		rand2 = @user.active_relationships[rand(@user.active_relationships.all.length)]
-		rand1.update_attribute(:rank, rand.rank+100000000000)
-		rand2.update_attribute(:rank, rand.rank+100000000000)
-		@user.active_relationships.find_by(:id, friend.id)
+	      user = User.find_by(email: name)
+		  @user.initializer(name)
+		  @user.liklihood_and_priors
 	    end
 	  else
 	  end

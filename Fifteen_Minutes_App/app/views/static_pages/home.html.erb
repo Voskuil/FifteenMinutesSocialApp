@@ -350,6 +350,10 @@
       <span class="description">
         <%= simple_format(current_user.description) %>
       </span>
+	  <h3 class="title">Location</h3>
+      <span class="description">
+        <%= simple_format(current_user.location) %>
+      </span>
     </div>
     <div class="col-md-8">
       <h2 class="title">Artist Feed</h2>
@@ -372,7 +376,7 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>You got fifteen minutes, use it!</h1>
-              <p class="lead">Talk about the main features of the site, add some cutesy slogan, talk about the search features, finding artists, and expressing your work.</p>
+              <p class="lead">Make a page, post your interests, describe yourself, and instantly connect with other like-minded individuals and organizations.</p>
               <%= link_to "Sign up now!", signup_path, class: "btn btn-lg btn-primary" %>
             </div>
           </div>
@@ -382,8 +386,8 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Get in the loop.</h1>
-              <p class="lead">Talk about the social network aspect of the site, the benefit to fans and businesses specificly on discovering what's out there and getting what they want across.</p>
-              <a class="btn btn-large btn-primary" href="placeholder.html">Search for more</a>
+              <p class="lead">A social network for connecting like-minded artists, search and find artists of similar interests.</p>
+              <li><%= link_to "Search for users!", users_path, class: "btn btn-large btn-primary" %></li>
             </div>
           </div>
         </div>
@@ -392,8 +396,8 @@
           <div class="container">
             <div class="carousel-caption">
               <h1>Express Yourself.</h1>
-              <p class="lead">Talk about the gallery, forum, and other means artists can get their work out to the public using the site. Have a link to a general gallery of some sort.</p>
-              <a class="btn btn-large btn-primary" href="placeholder.html">Browse gallery</a>
+              <p class="lead">Post your work, give tags to attract followers, and link your page to your other social media accounts.</p>
+              <li><%= link_to "See what users are saying!", users_path, class: "btn btn-large btn-primary" %></li>
             </div>
           </div>
         </div>
@@ -415,20 +419,20 @@
         <div class="col-md-4">
 		  <%= image_tag("artist.jpg", size: "140", class: "img-circle") %>
           <h2>Artists</h2>
-          <p>Have a short description of what artists get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to artists.</p>
-          <p><a class="btn" href="placeholder.html">View details »</a></p>
+          <p>Express yourself through your posts and link followers to your work and projects on other media sites.</p>
+          <p><%= link_to "Sign up now »", signup_path, class: "btn" %></p>
         </div><!-- /.col-md-4 -->
         <div class="col-md-4">
           <%= image_tag("business.jpg", size: "140", class: "img-circle") %>
           <h2>Business</h2>
-          <p>Have a short description of what local businesses get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to businesses.</p>
-          <p><a class="btn" href="placeholder.html">View details »</a></p>
+          <p>Attract a wide-range of followers that share similar interests. Be the biggest thing on everyone's feed!</p>
+          <p><%= link_to "Sign up now »", signup_path, class: "btn" %></p>
         </div><!-- /.col-md-4 -->
         <div class="col-md-4">
           <%= image_tag("fans.jpg", size: "140", class: "img-circle") %>
           <h2>Fans</h2>
-          <p>Have a short description of what fans get, some of the benefits and cool stuff. Add some cutesy send-off and then link to a forum or a search or something specific to fans.</p>
-          <p><a class="btn" href="placeholder.html">View details »</a></p>
+          <p>Connect to your favorite artists, discover and help support upcoming artists and organizations.</p>
+          <p><%= link_to "Sign up now »", signup_path, class: "btn" %></p>
         </div><!-- /.col-md-4 -->
       </div><!-- /.row -->
 
@@ -440,23 +444,15 @@
       <div class="featurette">
         <iframe class="featurette-image pull-right" width="512" height="512" src="https://www.youtube.com/embed/9p4NkdzXazM" frameborder="0" allowfullscreen></iframe>
         <h2 class="featurette-heading">What's Hot? <span class="muted">It'll blow your mind.</span></h2>
-        <p class="lead">Add a video, music, or some performance by an artist that is currently trending on the website. Add a short description and a link to their profile.</p>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="featurette">
-        <iframe class="featurette-image pull-left" src="https://www.google.com/calendar/embed?src=avoskuil%40andrew.cmu.edu&ctz=America/New_York" style="border: 0" width="516" height="516" frameborder="0" scrolling="no"></iframe>
-        <h2 class="featurette-heading">What's going on? <span class="muted">See for yourself.</span></h2>
-        <p class="lead">Short description of the biggest act that month or week, add a link to profile pages associated with the groups involved.</p>
+        <p class="lead">Check out this post that has been trending!</p>
       </div>
 
       <hr class="featurette-divider">
 
       <div class="featurette">
 	    <%= image_tag("ads.jpg", class: "featurette-image pull-right") %>
-        <h2 class="featurette-heading">What's the talk of the town? <span class="muted">Legato School of Music.</span></h2>
-        <p class="lead">Have this be an ad for some for-profit business or non-profit group of artists that is trending on the website. Add a short description and a link to a website.</p>
+        <h2 class="featurette-heading">What's the talk of the town? <span class="muted">Check out what people are saying!</span></h2>
+        <p class="lead"></p>
       </div>
 
       <hr class="featurette-divider">

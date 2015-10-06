@@ -1,7 +1,6 @@
 class User < ActiveRecord::Base
   include PgSearch
   require 'matrix'
-  #require 'math'
   acts_as_messageable
   mount_uploader :picture, PictureUploader
   validate  :picture_size
@@ -37,7 +36,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
-  # Returns the hash digest of the given string.
+  # Returns the hash of string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
                                                   BCrypt::Engine.cost
@@ -75,7 +74,7 @@ class User < ActiveRecord::Base
     update_attribute(:remember_digest, nil)
   end
   
-  # Activates an account.
+  # Activates account.
   def activate
     update_attribute(:activated,    true)
     update_attribute(:activated_at, Time.zone.now)
@@ -148,8 +147,10 @@ class User < ActiveRecord::Base
     following.include?(other_user)
   end
   
+  
+  # Finds and follows all users that share the query and checks
+  # if its rank needs to be adjusted.
   def findFriends(users,query,h)
-    
     users.each do |user|
       if query.split(" ").map{|c| user.bucket[c] != nil}.inject{|all,exists| all and exists} and (special.empty? or special['1'] == nil or special['1'][user.id] == nil)
 	    if active_relationships.find_by(followed_id: user.id) != nil
@@ -179,6 +180,7 @@ class User < ActiveRecord::Base
 	end
   end
   
+  # Merge all users' buckets into the current user's peerBucket
   def peerBucketAdd(users)
     users.each do |user|
       peerBucket.merge!(user.bucket)
@@ -186,6 +188,8 @@ class User < ActiveRecord::Base
 	update_attribute(:peerBucket, peerBucket)
   end
   
+  # Unfollows all users following user except those
+  # otherwise mentioned in special
   def removeFriends(users)
     h = {}
     users.each do |user|
@@ -198,14 +202,20 @@ class User < ActiveRecord::Base
 	h
   end
   
+  # Defines name to be used for mailboxer
   def namer
     name
   end
 
+  # Defines email to be used in mailboxer
   def mailboxer_email(object)
     email
   end
   
+  # Given an id of a user who has shown interest in the current user,
+  # defines a training set or adds said user into the existing training set
+  # containing user names, and their word usage as an training examples
+  # to be used in the classifier
   def initializer(id)
     newFriend = User.find_by(id: id)
     friendHash = {"name"=>newFriend.id,"words"=>newFriend.bucket,"location"=>newFriend.location}
@@ -267,6 +277,8 @@ class User < ActiveRecord::Base
 	update_attribute(:trainData, {"total"=>total,"friends"=>friends,"non_friends"=>nonFriends})
  end
  
+  # Uses current user's training data to calculate the MLE and priors
+  # to use in the multinomial classifier.
   def liklihood_and_priors
     m1 = Matrix[]
 	m2 = Matrix[]
@@ -281,6 +293,9 @@ class User < ActiveRecord::Base
 	update_attribute(:trainData, train)
   end
   
+  # Given a test user, returns the probability that said user would
+  # show active interest in the current user when comparing his word
+  # usage to other users.
   def classify(testUser)
     total = trainData["total"]
 	words = testUser.bucket
