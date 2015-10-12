@@ -9,4 +9,13 @@ more efficient connection process between users.
 The site is currently hosted on Heroku and can be viewed at;
 enigmatic-temple-7761.herokuapps.com
 
+*NOTE*
+Currently the naive bayes classifier is not being run, however you can look under
+app/controllers/user_controllers.rb to see the commented out-code where it is called,
+app/models/user.rb under the functions initializer, liklihood_and_priors, and classify
+to see how the classifier works.
+For the theory behind the classifier here are some good resources;
+https://class.coursera.org/nlp/lecture/28
+https://en.wikipedia.org/wiki/Naive_Bayes_classifier#Multinomial_naive_Bayes
+
 Enjoy!
