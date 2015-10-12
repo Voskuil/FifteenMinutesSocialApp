@@ -1,18 +1,20 @@
 class CreateFunctionAndTriggerForFillingSearchVectorOfUsers < ActiveRecord::Migration
+  # Optimizes full text search by using a trigger to keep the lexemes up-to-date
+
   def up
     execute <<-EOS
       CREATE OR REPLACE FUNCTION fill_search_vector_for_user() RETURNS trigger LANGUAGE plpgsql AS $$
       declare
-        user_microposts record;
+        user_posts record;
 
       begin
-        select string_agg(content, ' ') as content into user_microposts from microposts where user_id = new.id;
-
+        select string_agg(content, ' ') as content into user_posts from posts where user_id = new.id;
+        
         new.search_vector :=
           setweight(to_tsvector('pg_catalog.english', coalesce(new.name, '')), 'A')                  ||
           setweight(to_tsvector('pg_catalog.english', coalesce(new.description, '')), 'B')                ||
 		  setweight(to_tsvector('pg_catalog.english', coalesce(new.interest, '')), 'B')                ||
-          setweight(to_tsvector('pg_catalog.english', coalesce(user_microposts.content, '')), 'B');
+          setweight(to_tsvector('pg_catalog.english', coalesce(user_posts.content, '')), 'B');
 
         return new;
       end

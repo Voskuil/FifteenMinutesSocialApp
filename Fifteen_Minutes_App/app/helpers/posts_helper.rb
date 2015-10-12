@@ -1,3 +1,3 @@
-module MicropostsHelper
+module PostsHelper
    include AutoHtml
 end

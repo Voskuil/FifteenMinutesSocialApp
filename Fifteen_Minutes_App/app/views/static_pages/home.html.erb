@@ -5,7 +5,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Le styles -->
+    <!-- Styles -->
     <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
     <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
     <style>
@@ -322,8 +322,8 @@
 		  <section class="stats">
 		    <%= current_user.name %>
 		  </section>
-		  <span class="microposts">
-            <%= pluralize(current_user.microposts.count, "micropost") %>
+		  <span class="posts">
+            <%= pluralize(current_user.posts.count, "post") %>
           </span>
 	    </aside>
 	  </a>
@@ -338,8 +338,8 @@
 	    <% end %>	
       </aside>
       <aside class="col-md-8">
-        <section class="micropost_form">
-          <%= render 'shared/micropost_form' %>
+        <section class="post_form">
+          <%= render 'shared/post_form' %>
         </section>
       </aside>	  
     </div>
@@ -408,9 +408,7 @@
 
 
 
-    <!-- Marketing messaging and featurettes
-    ================================================== -->
-    <!-- Wrap the rest of the page in another container to center all the content. -->
+    <!-- Featurettes -->
 
     <div class="container marketing">
 

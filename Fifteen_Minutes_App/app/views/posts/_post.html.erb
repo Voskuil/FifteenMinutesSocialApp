@@ -1,0 +1,61 @@
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <meta charset="utf-8">
+    <title>Fifteen · The Artist's Place</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Styles -->
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap.css" rel="stylesheet">
+    <link href="http://getbootstrap.com/2.3.2/assets/css/bootstrap-responsive.css" rel="stylesheet">
+    <style>
+	
+	.posting {
+	  border-style: dashed;
+	  border-color: #0000FF;
+      background: rgb(255, 0, 0);
+    /* RGBa with 0.6 opacity */
+    background: rgba(255, 0, 0, 0.8);
+    /* For IE 5.5 - 7*/
+    filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000);
+    /* For IE 8*/
+    -ms-filter: "progid:DXImageTransform.Microsoft.gradient(startColorstr=#99000000, endColorstr=#99000000)";
+    }
+
+	</style>
+<li class="posting", id="post-<%= post.id %>">
+  <section>
+  <%= image_tag(post.user.picture.url,size: "50x50") if post.user.picture? %>
+  <%= image_tag("fans.jpg",size: "50x50") if !post.user.picture? %>
+  <span class="user"><%= link_to post.user.name, post.user %></span>
+  <span class="content">
+    <% if post.content.split(" ").select {|c| !c.include? "http"}.join(" ").index("#") == nil %>
+															
+	    <%= simple_format(post.content.split(" ").select {|c| !c.include? "http"}.join(" ")) %>
+	  <% else %>
+	    <%= simple_format(post.content.split(" ").select {|c| !c.include? "http"}.join(" ")[0,post.content.index(" #")]) %>
+	    <% post.content[post.content.index(" #")..-1].split(" #")[1..-1].each do |word| %>
+	      <%= link_to "#" + word, :controller => '/users', :method => 'get', :search => word %>
+	    <% end %>
+	  <% end %>
+    <% if post.content.include? 'youtu' %>
+      <%= auto_html(post.content.split(" ")[post.content.split(" ").find_index{|x| x.include? 'youtu'}]) {youtube(:width => 550, :height => 190)}   %>
+    <% end %>
+    <% if post.content.include? 'http'%>
+	  <a href="<%= post.content.split(" ")[post.content.split(" ").find_index{|x| x.include? 'http'}] %>">
+	  <%= post.content.split(" ")[post.content.split(" ").find_index{|x| x.include? 'http'}] %></a>
+	  <%= link_to image_tag("meseeks.gif",size: "200x200"), viewed_post_path(post) %>
+    <% end %>
+    <%= image_tag post.picture.url if post.picture? %>
+  </span>
+  <span class="timestamp">
+    Posted <%= time_ago_in_words(post.created_at) %> ago.
+    <% if current_user?(post.user) %>
+      <%= link_to "delete", post, method: :delete,
+                                       data: { confirm: "You sure?" } %>
+	<% end %>
+	<% if !current_user?(post.user) and current_user.following?(post.user)%>
+	  <%= link_to current_user.active_relationships.find_by(followed_id: post.user.id).common, :controller => '/users', :method => 'get', :search => current_user.active_relationships.find_by(followed_id: post.user.id).common %>
+	<% end %>
+  </span>
+</li></html>

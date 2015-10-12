@@ -1,4 +1,6 @@
 class AddTsvectorColumnToUsers < ActiveRecord::Migration
+  # Optimizes full text search by introducing tsvector to cache lexemes
+  
   def up
     add_column :users, :search_vector, :tsvector
 

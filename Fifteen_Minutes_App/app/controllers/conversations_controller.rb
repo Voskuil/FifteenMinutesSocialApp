@@ -1,20 +1,25 @@
 class ConversationsController < ApplicationController
   helper_method :mailbox, :conversation
 
+  # Create Conversation between multiple recipients
   def create
     recipient_name = conversation_params(:recipients).split(',')
     recipients = User.where(name: recipient_name).all
 
-    conversation = current_user.send_message(recipients, *conversation_params(:body, :subject)).conversation
+    conversation = current_user.send_message(recipients, 
+	               *conversation_params(:body, :subject)).conversation
 
     redirect_to conversation_path(conversation)
   end
 
+  # Reply to conversation
   def reply
-    current_user.reply_to_conversation(conversation, *message_params(:body, :subject))
+    current_user.reply_to_conversation(conversation, 
+	                                   *message_params(:body, :subject))
     redirect_to conversation_path(conversation)
   end
 
+  # Remove conversation
   def trash
     conversation.move_to_trash(current_user)
     redirect_to :conversations

@@ -37,12 +37,12 @@
   </div>
   <div class="col-md-8">
     <%= render 'follow_form' if logged_in? %>
-    <% if @user.microposts.any? %>
-      <h3>Microposts (<%= @user.microposts.count %>)</h3>
-      <ol class="microposts">
-        <%= render @microposts %>
+    <% if @user.posts.any? %>
+      <h3>Posts (<%= @user.posts.count %>)</h3>
+      <ol class="posts">
+        <%= render @posts %>
       </ol>
-      <%= will_paginate @microposts %>
+      <%= will_paginate @posts %>
     <% end %>
   </div>
 </div>

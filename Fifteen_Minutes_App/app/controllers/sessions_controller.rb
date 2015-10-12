@@ -3,6 +3,10 @@ class SessionsController < ApplicationController
   def new
   end
 
+  # Create a new session/login, and
+  # 1. Checks if account is activated
+  # 2. Checks whether to "remember user"
+  # 3. Updates current users to follow
   def create
     user = User.find_by(email: params[:session][:email].downcase)
     if user && user.authenticate(params[:session][:password])
@@ -10,11 +14,11 @@ class SessionsController < ApplicationController
         log_in user
         params[:session][:remember_me] == '1' ? remember(user) : forget(user)
         redirect_back_or user
-		@interestPre = current_user.interest.tr("?!#()'.-","").downcase.split(",")
-	    @interest = @interestPre.map{|c| c.rstrip.lstrip}
+		interests = current_user.interest.tr("?!#()'.-","").downcase.split(",")
+	    interests = interests.map{|c| c.rstrip.lstrip}
 	    users = User.all
 	    current_user.removeFriends(current_user.following)
-	    @interest.each do |keyword|
+	    interests.each do |keyword|
 	      current_user.findFriends(users,keyword,nil)
 	    end
       else

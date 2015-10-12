@@ -4,7 +4,7 @@ class User < ActiveRecord::Base
   acts_as_messageable
   mount_uploader :picture, PictureUploader
   validate  :picture_size
-  has_many :microposts, dependent: :destroy
+  has_many :posts, dependent: :destroy
   has_many :active_relationships,  class_name:  "Relationship",
                                    foreign_key: "follower_id",
                                    dependent:   :destroy
@@ -12,15 +12,14 @@ class User < ActiveRecord::Base
                                    foreign_key: "followed_id",
                                    dependent:   :destroy
   pg_search_scope :psearch, against: [:name, :description, :interest],
-        associated_against: {microposts: :content},
+        associated_against: {posts: :content},
         using: {tsearch: {dictionary: "english"}}
   has_many :following, through: :active_relationships,  source: :followed
   has_many :followers, through: :passive_relationships, source: :follower
   scope :enabled, -> {
-        joins("INNER JOIN profiles as p01 ON p01.id = users.microposts_id").where("po1.enabled IS true")
+        joins("INNER JOIN profiles as p01 ON p01.id = users.posts_id").
+		where("po1.enabled IS true")
 }
-  
-  
   attr_accessor :remember_token, :activation_token, :reset_token
   before_save   :downcase_email
   before_create :create_activation_digest
@@ -36,6 +35,7 @@ class User < ActiveRecord::Base
   has_secure_password
   validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
   
+  
   # Returns the hash of string.
   def User.digest(string)
     cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
@@ -43,15 +43,18 @@ class User < ActiveRecord::Base
     BCrypt::Password.create(string, cost: cost)
   end
   
+  # Generate a token
   def User.new_token
     SecureRandom.urlsafe_base64
   end
   
+  # Generate a remember token
   def remember
     self.remember_token = User.new_token
     update_attribute(:remember_digest, User.digest(remember_token))
   end
   
+  # Search using pg_search_scope from the pg_search gem
   def self.search(query)
     #rank = ts_rank(to_tsvector(name),plainto_tsquery("#{sanitize(query)}")) +
 	#       ts_rank(to_tsvector(name),plainto_tsquery("#{sanitize(query)}"))
@@ -102,22 +105,28 @@ class User < ActiveRecord::Base
     reset_sent_at < 2.hours.ago
   end
   
-  # Returns a user's status feed.
+  # Returns a user's status feed in order by rank.
   def feed(sieve)
     if sieve != nil
       following_ids = "SELECT followed_id FROM relationships
                        WHERE  follower_id = :user_id"
-	  Micropost.joins(:user).where("user_id IN (#{following_ids})
-                       OR user_id = :user_id", user_id: id).order("CAST(users.rank -> CAST(#{id} as TEXT) as NUMERIC) + CAST(microposts.rank as NUMERIC)").reverse_order
+	  Post.joins(:user).where("user_id IN (#{following_ids})
+                       OR user_id = :user_id", user_id: id).
+					   order("CAST(users.rank -> CAST(#{id} as TEXT) 
+					          as NUMERIC) + CAST(posts.rank as NUMERIC)").
+					   reverse_order
 	else
 	  following_ids = "SELECT followed_id FROM relationships
                        WHERE  follower_id = :user_id"
-	  Micropost.joins(:user).where("user_id IN (#{following_ids})
-                       OR user_id = :user_id", user_id: id).order("CAST(users.rank -> CAST(#{id} as TEXT) as NUMERIC) + CAST(microposts.rank as NUMERIC)").reverse_order
+	  Post.joins(:user).where("user_id IN (#{following_ids})
+                       OR user_id = :user_id", user_id: id).
+					   order("CAST(users.rank -> CAST(#{id} as TEXT)
+					   as NUMERIC) + CAST(posts.rank as NUMERIC)").
+					   reverse_order
 	end
   end
 
-  # Follows a user.
+  # Follows a user, marks user in special if the user was manually followed
   def follow(other_user)
     active_relationships.create(followed_id: other_user.id)
 	#active_relationships.update_attribute(:rank, 0.0)
@@ -130,7 +139,7 @@ class User < ActiveRecord::Base
 	end
   end
 
-  # Unfollows a user.
+  # Unfollows a user, marks user in special if the user was manually unfollowed
   def unfollow(other_user)
     active_relationships.find_by(followed_id: other_user.id).destroy
 	if special.empty?
@@ -149,10 +158,12 @@ class User < ActiveRecord::Base
   
   
   # Finds and follows all users that share the query and checks
-  # if its rank needs to be adjusted.
+  # if the user's rank needs to be adjusted.
   def findFriends(users,query,h)
     users.each do |user|
-      if query.split(" ").map{|c| user.bucket[c] != nil}.inject{|all,exists| all and exists} and (special.empty? or special['1'] == nil or special['1'][user.id] == nil)
+      if query.split(" ").map{|c| user.bucket[c] != nil}.
+	                      inject{|all,exists| all and exists} and 
+		(special.empty? or special['1'] == nil or special['1'][user.id] == nil)
 	    if active_relationships.find_by(followed_id: user.id) != nil
 		  rankTemp = active_relationships.find_by(followed_id: user.id).rank
 		  active_relationships.find_by(followed_id: user.id).destroy
@@ -164,7 +175,8 @@ class User < ActiveRecord::Base
 		  end
 		end
 		active_relationships.create(followed_id: user.id)
-		active_relationships.find_by(followed_id: user.id).update_attribute(:rank, rankTemp)
+		active_relationships.find_by(followed_id: user.id).
+		                     update_attribute(:rank, rankTemp)
 		newFriend = User.find_by(id: user.id)
 		rank[id] = active_relationships.find_by(followed_id: user.id).rank
 		user.update_attribute(:rank, rank)
@@ -172,9 +184,14 @@ class User < ActiveRecord::Base
 		   classify(user)
 		end
 		if active_relationships.find_by(followed_id: user.id).common == nil
-		   active_relationships.find_by(followed_id: user.id).update_attribute(:common, "#" + query)
+		   active_relationships.find_by(followed_id: user.id).
+		                        update_attribute(:common, "#" + query)
 		else
-		   active_relationships.find_by(followed_id: user.id).update_attribute(:common, active_relationships.find_by(followed_id: user.id).common + "#" + query + " ")
+		   active_relationships.find_by(followed_id: user.id).
+		                        update_attribute(:common, 
+								                  active_relationships.
+												  find_by(followed_id: user.id).
+												  common + "#" + query + " ")
 		end
 	  end
 	end
@@ -212,10 +229,14 @@ class User < ActiveRecord::Base
     email
   end
   
-  # Given an id of a user who has shown interest in the current user,
-  # defines a training set or adds said user into the existing training set
-  # containing user names, and their word usage as an training examples
-  # to be used in the classifier
+  # Given an id of a user who has shown interest in the current user;
+  # Defines a training set 
+  # -or- 
+  # Adds said user into the existing training set, containing;
+  #    1. user names
+  #    2. word usage by user
+  #    3. total word usage, and word usage by the group that has shown interest
+  #       and those that have not.
   def initializer(id)
     newFriend = User.find_by(id: id)
     friendHash = {"name"=>newFriend.id,"words"=>newFriend.bucket,"location"=>newFriend.location}
@@ -277,8 +298,10 @@ class User < ActiveRecord::Base
 	update_attribute(:trainData, {"total"=>total,"friends"=>friends,"non_friends"=>nonFriends})
  end
  
-  # Uses current user's training data to calculate the MLE and priors
-  # to use in the multinomial classifier.
+  # Using the current user's training set this calculates;
+  # 1. The prior probability of the two classes (will show interest vs won't)
+  # 2. The conditional probability of each word being in associated with a
+  #    certain class. This is in the form of a matrix for ease in classification.
   def liklihood_and_priors
     m1 = Matrix[]
 	m2 = Matrix[]
@@ -293,9 +316,13 @@ class User < ActiveRecord::Base
 	update_attribute(:trainData, train)
   end
   
-  # Given a test user, returns the probability that said user would
-  # show active interest in the current user when comparing his word
-  # usage to other users.
+  # Given a test user returns the probability that said user would show interest;
+  #    - It does so by using the training data, its conditional probabilities
+  #    - for friends and non friends and applying a linear classifier in the
+  #    - form of log(prior_class-i) + log(matrix of conditional_probs_class-i)
+  #                                 * test user's word usage
+  # Check out, https://en.wikipedia.org/wiki/Naive_Bayes_classifier#Multinomial_naive_Bayes
+  # for a more thorough explanation of the theory
   def classify(testUser)
     total = trainData["total"]
 	words = testUser.bucket

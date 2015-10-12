@@ -1,4 +1,4 @@
-class Micropost < ActiveRecord::Base
+class Post < ActiveRecord::Base
   include AutoHtml
   belongs_to :user
   #default_scope -> { order(:rank).reverse_order }
